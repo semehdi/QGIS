@@ -540,7 +540,7 @@ void QgsLayerTreeViewDefaultActions::ungroupSelected()
   QgsLayerTreeNode *currentNode = mView->currentNode();
   if ( !currentNode || !QgsLayerTree::isGroup( currentNode ) )
     return;
-  
+
   QgsLayerTreeNode *parentNode = currentNode->parent();
   if ( !parentNode )
     return;
@@ -549,14 +549,14 @@ void QgsLayerTreeViewDefaultActions::ungroupSelected()
   QgsLayerTreeGroup *parentGroup = QgsLayerTree::toGroup( parentNode );
 
   const QList<QgsLayerTreeNode *> nodes = currentNode->children();
-  
-  for (QgsLayerTreeNode* node : nodes)
-    parentGroup->insertChildNode(insertIdx++, node->clone());
-  
-  for (QgsLayerTreeNode* node : nodes)
+
+  for ( QgsLayerTreeNode *node : nodes )
+    parentGroup->insertChildNode( insertIdx++, node->clone() );
+
+  for ( QgsLayerTreeNode *node : nodes )
     parentGroup->removeChildNode( node );
-  
-  parentGroup->removeChildNode(currentNode);
+
+  parentGroup->removeChildNode( currentNode );
 }
 
 QAction *QgsLayerTreeViewDefaultActions::actionUngroup( QgsMapCanvas *canvas, QObject *parent )
@@ -566,4 +566,3 @@ QAction *QgsLayerTreeViewDefaultActions::actionUngroup( QgsMapCanvas *canvas, QO
   connect( a, &QAction::triggered, this, static_cast<void ( QgsLayerTreeViewDefaultActions::* )()>( &QgsLayerTreeViewDefaultActions::ungroupSelected ) );
   return a;
 }
-
